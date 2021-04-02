@@ -16,6 +16,7 @@ class LSummoner(commands.Cog):
         if ctx.channel.id == self.common.botChannelId:
             try:
                 s = lol_watcher.summoner.by_name(region, username)
+                # print(s)
             except:
                 await ctx.send("Invalid Summoner Name!")
                 return
@@ -24,6 +25,7 @@ class LSummoner(commands.Cog):
             level = s['summonerLevel']
 
             rs = lol_watcher.league.by_summoner(region, s['id'])
+
             if not rs:
                 embed = discord.Embed(title=name, color=discord.Color.default())
                 embed.add_field(name='Rank', value='UnRanked', inline=False)

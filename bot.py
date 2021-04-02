@@ -17,14 +17,23 @@ common = common.Common()
 file = open('token.json')
 data = json.load(file)
 
+client.remove_command('help')
+
 # vClient = valorant.Client(vKey)
 # acc = vClient.get_user_by_name('KCsup#2216', '#')
 # for x in vClient.get_leaderboard().players:
 #     print(x.gameName)
 # print(acc.puuid)
+print('hi')
 
 rKey = data['riotToken']
 lol_watcher = LolWatcher(rKey)
+region = common.region
+s = lol_watcher.summoner.by_name(region, 'aceofspades735')
+ml = lol_watcher.match.matchlist_by_account(region=region, encrypted_account_id=s['accountId'], begin_index=0, end_index=1)
+cID = ml['matches'][0]['champion']
+print(ml)
+print(common.getChampion(cID))
 
 # my_region = 'na1'
 # me = None
@@ -41,19 +50,16 @@ lol_watcher = LolWatcher(rKey)
 #
 # print(common.selfUserId)
 
-def get_common():
-    return common
-
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game('a Riot Game'))
     print('RiotBot is ready.')
 
-@client.command()
+@client.command(hidden=True)
 async def load(ctx: commands.Context, extension):
     client.load_extension(f'cogs.{extension}')
 
-@client.command()
+@client.command(hidden=True)
 async def unload(ctx: commands.Context, extension):
     if ctx.author.guild_permissions.administrator:
         client.unload_extension(f'cogs.{extension}')
@@ -61,7 +67,7 @@ async def unload(ctx: commands.Context, extension):
         await ctx.send('You cannot unload cogs! You must be an admin to do this!')
         print(format(ctx.author.name) + ' tried to unload a cog.')
 
-@client.command()
+@client.command(hidden=True)
 async def reload(ctx: commands.Context, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
