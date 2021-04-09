@@ -1,5 +1,6 @@
 import json
 
+
 class Common():
     file = open('important.json')
     data = json.load(file)
@@ -324,12 +325,76 @@ class Common():
         "Viego": "https://i.imgur.com/IsupZU8.png"
     }
 
-    def getChampion(self, id):
-        name = self.all_champion_id[id]
-        icon = self.all_champion_icon[name]
-        map = {'name': name, 'icon': icon}
+    all_v_rank_id = {
+        3: "Iron 1",
+        4: "Iron 2",
+        5: "Iron 3",
+        6: "Bronze 1",
+        7: "Bronze 2",
+        8: "Bronze 3",
+        9: "Silver 1",
+        10: "Silver 2",
+        11: "Silver 3",
+        12: "Gold 1",
+        13: "Gold 2",
+        14: "Gold 3",
+        15: "Platinum 1",
+        16: "Platinum 2",
+        17: "Platinum 3",
+        18: "Diamond 1",
+        19: "Diamond 2",
+        20: "Diamond 3",
+        21: "Immortal 1",
+        22: "Immortal 2",
+        23: "Immortal 3",
+        24: "Radiant"
+    }
 
-        if id >= 1 and id <= 876:
-            return map
+    all_v_rank_icon = {
+        "UnRanked": "https://i.imgur.com/u4flNiD.png",
+        "Iron 1": "https://i.imgur.com/G5F4iQ5.png",
+        "Iron 2": "https://i.imgur.com/L14ixXF.png",
+        "Iron 3": "https://i.imgur.com/SzZgX5I.png",
+        "Bronze 1": "https://i.imgur.com/iMljdtf.png",
+        "Bronze 2": "https://i.imgur.com/XzlIZPV.png",
+        "Bronze 3": "https://i.imgur.com/u4RYBwL.png",
+        "Silver 1": "https://i.imgur.com/W3ouiUY.png",
+        "Silver 2": "https://i.imgur.com/0yQMHZO.png",
+        "Silver 3": "https://i.imgur.com/ZQGSF9R.png",
+        "Gold 1": "https://i.imgur.com/SBgZHnt.png",
+        "Gold 2": "https://i.imgur.com/aflMtr7.png",
+        "Gold 3": "https://i.imgur.com/9B0d1Lu.png",
+        "Platinum 1": "https://i.imgur.com/8fXUEkY.png",
+        "Platinum 2": "https://i.imgur.com/YYXL7al.png",
+        "Platinum 3": "https://i.imgur.com/xrQb78k.png",
+        "Diamond 1": "https://i.imgur.com/0MqWroD.png",
+        "Diamond 2": "https://i.imgur.com/zBFHxG7.png",
+        "Diamond 3": "https://i.imgur.com/CePk26H.png",
+        "Immortal 1": "https://i.imgur.com/lUuXwO3.png",
+        "Immortal 2": "https://i.imgur.com/lUuXwO3.png",
+        "Immortal 3": "https://i.imgur.com/lUuXwO3.png",
+        "Radiant": "https://i.imgur.com/uPYHHbT.png"
+    }
+
+    def getVRank(self, id):
+        if id in self.all_v_rank_id.keys():
+            name = self.all_v_rank_id[id]
+            icon = self.all_v_rank_icon[name]
+            rank = {'name': name, 'icon': icon}
+            return rank
+        elif 3 > id >= 0:
+            name = 'UnRanked'
+            icon = self.all_v_rank_icon[name]
+            rank = {'name': name, 'icon': icon}
+            return rank
+        else:
+            return 'Not a Rank'
+
+    def getChampion(self, id):
+        if id in self.all_champion_id.keys():
+            name = self.all_champion_id[id]
+            icon = self.all_champion_icon[name]
+            champion = {'name': name, 'icon': icon}
+            return champion
         else:
             return 'Not a Champion'

@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import util.common as common
 from bot import lol_watcher
+from riotwatcher import ApiError
 
 
 class LSummoner(commands.Cog):
@@ -17,7 +18,7 @@ class LSummoner(commands.Cog):
             try:
                 s = lol_watcher.summoner.by_name(region, username)
                 # print(s)
-            except:
+            except ApiError:
                 await ctx.send("Invalid Summoner Name!")
                 return
 

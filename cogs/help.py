@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import util.common as common
 
+
 class Help(commands.Cog):
     common = common.Common()
 
@@ -19,6 +20,7 @@ class Help(commands.Cog):
                            'Current Commands: \n' + c
                            + '```')
             print(c)
+
 
 def setup(client):
     client.add_cog(Help(client))
